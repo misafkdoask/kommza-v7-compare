@@ -397,8 +397,111 @@ p { line-height: 1.47; }
   border-radius: 12px;
   background: rgba(0,0,0,0.06);
   margin-top: auto;
+  position: relative;
+  overflow: hidden;
 }
 .feat-tiles .tile-card.dark .mock { background: rgba(255,255,255,0.08); }
+
+/* v9 — screen-share mockup inside Демо экрана card */
+.mock-screen {
+  background: #fff;
+  padding: 12px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.mock-screen .browser-bar {
+  display: flex; gap: 4px; align-items: center;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--divider);
+}
+.mock-screen .browser-bar span {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--hairline);
+}
+.mock-screen .browser-bar .url {
+  margin-left: 8px;
+  flex: 1;
+  background: var(--parchment);
+  border-radius: 4px;
+  height: 14px;
+  font-family: 'SF Mono', monospace;
+  font-size: 9px;
+  color: var(--ink-muted-48);
+  padding: 2px 6px;
+  width: auto;
+  display: flex; align-items: center;
+}
+.mock-screen .slide-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.mock-screen .slide-row {
+  display: flex; gap: 6px;
+}
+.mock-screen .slide-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--coral), var(--coral-soft));
+  flex: 1;
+}
+.mock-screen .slide-bar.short { flex: 0.4; background: var(--hairline); }
+.mock-screen .slide-bar.medium { flex: 0.7; background: var(--hairline); }
+.mock-screen .pointer {
+  position: absolute;
+  bottom: 26%; right: 28%;
+  width: 14px; height: 14px;
+  background: var(--coral);
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 4px 12px rgba(224,90,43,0.4);
+}
+
+/* v9 — calendar event card inside Календарь */
+.mock-calendar {
+  background: rgba(0,0,0,0.18);
+  padding: 12px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.mock-calendar .cal-header {
+  display: flex; justify-content: space-between;
+  font-family: 'SF Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,255,255,0.65);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.mock-calendar .cal-event {
+  background: var(--coral);
+  border-left: 3px solid #fff;
+  border-radius: 4px;
+  padding: 6px 8px;
+  color: #fff;
+}
+.mock-calendar .cal-event .ev-time {
+  font-family: 'SF Mono', monospace;
+  font-size: 8px;
+  opacity: 0.85;
+}
+.mock-calendar .cal-event .ev-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.mock-calendar .cal-event .ev-link {
+  font-family: 'SF Mono', monospace;
+  font-size: 8px;
+  background: rgba(0,0,0,0.18);
+  padding: 1px 5px;
+  border-radius: 2px;
+  margin-top: 2px;
+  display: inline-block;
+}
+.mock-calendar .cal-event.muted {
+  background: rgba(255,255,255,0.10);
+  border-left-color: rgba(255,255,255,0.35);
+}
+.mock-calendar .cal-event.muted .ev-title { color: rgba(255,255,255,0.85); font-weight: 500; }
+.mock-calendar .cal-event.muted .ev-link { display: none; }
 @media (max-width: 760px) { .feat-tiles { grid-template-columns: 1fr; } }
 
 /* Compare table — Apple-spec style */
@@ -434,6 +537,65 @@ p { line-height: 1.47; }
 .compare-cell.highlight li { border-color: rgba(255,255,255,0.10); }
 .compare-cell li::before { content: "+ "; color: var(--coral); font-weight: 600; }
 @media (max-width: 760px) { .compare-table { grid-template-columns: 1fr; } }
+
+/* v9 — Use cases tile (6 scenarios) */
+.usecases-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 56px auto 0;
+  max-width: 1024px;
+  padding: 0 22px;
+}
+.usecase-card {
+  background: var(--canvas);
+  border-radius: 18px;
+  padding: 28px 24px;
+  display: flex; flex-direction: column;
+  gap: 14px;
+  border: 1px solid var(--divider);
+  transition: transform .2s ease, border-color .2s ease;
+}
+.usecase-card:hover { transform: translateY(-2px); border-color: var(--coral); }
+.usecase-card .uc-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: var(--coral-soft);
+  color: var(--coral);
+  display: grid; place-items: center;
+}
+.usecase-card .uc-icon svg { width: 18px; height: 18px; }
+.usecase-card h4 {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.usecase-card p {
+  font-size: 14px;
+  color: var(--ink-muted-80);
+  line-height: 1.4;
+}
+@media (max-width: 760px) {
+  .usecases-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+}
+@media (max-width: 480px) {
+  .usecases-grid { grid-template-columns: 1fr; }
+}
+
+/* v9 — Final CTA proof */
+.final-proof {
+  display: flex; flex-wrap: wrap; gap: 24px;
+  justify-content: center;
+  margin: 32px auto 0;
+  max-width: 720px;
+}
+.final-proof .pp {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 14px; color: var(--ink-muted-80);
+  letter-spacing: -0.01em;
+}
+.final-proof .pp svg { width: 14px; height: 14px; color: var(--coral); flex-shrink: 0; }
 
 /* Steps */
 .step-row {
@@ -661,13 +823,41 @@ footer {
       <p class="meta">Демо экрана</p>
       <h3>Покажите всё.<br>Целиком или окно.</h3>
       <p>Презентации, документы, код — выбирайте, что видит собеседник.</p>
-      <div class="mock"></div>
+      <div class="mock mock-screen">
+        <div class="browser-bar">
+          <span></span><span></span><span></span>
+          <span class="url">presentation.pdf · slide 4 / 12</span>
+        </div>
+        <div class="slide-title">Q2 Roadmap · Команда продукта</div>
+        <div class="slide-row"><span class="slide-bar"></span><span class="slide-bar medium"></span></div>
+        <div class="slide-row"><span class="slide-bar short"></span><span class="slide-bar medium"></span><span class="slide-bar"></span></div>
+        <div class="slide-row"><span class="slide-bar medium"></span><span class="slide-bar"></span></div>
+        <div class="pointer"></div>
+      </div>
     </div>
     <div class="tile-card dark">
       <p class="meta">Календарь</p>
       <h3>Яндекс. Google.<br>Автоматически.</h3>
       <p>Встреча создаётся прямо из события. Никакой ручной работы.</p>
-      <div class="mock"></div>
+      <div class="mock mock-calendar">
+        <div class="cal-header">
+          <span>Сегодня · Вт</span>
+          <span>14 мая</span>
+        </div>
+        <div class="cal-event muted">
+          <div class="ev-time">09:00 — 09:30</div>
+          <div class="ev-title">Дейли · команда</div>
+        </div>
+        <div class="cal-event">
+          <div class="ev-time">14:00 — 15:00</div>
+          <div class="ev-title">Демо клиенту</div>
+          <div class="ev-link">kommza.io/m/k4q9</div>
+        </div>
+        <div class="cal-event muted">
+          <div class="ev-time">17:00 — 18:30</div>
+          <div class="ev-title">Онбординг команды</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -713,6 +903,57 @@ footer {
   </div>
 </section>
 
+<section class="tile tile-pearl">
+  <div class="wrap">
+    <h2>Кто использует Коммзу.</h2>
+    <p class="lead">Команды, HR, агентства, преподаватели — каждый день.</p>
+  </div>
+  <div class="usecases-grid">
+    <div class="usecase-card">
+      <div class="uc-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      </div>
+      <h4>Команды и IT</h4>
+      <p>Дейли и спринты. Демонстрация экрана и чат — в одном окне.</p>
+    </div>
+    <div class="usecase-card">
+      <div class="uc-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>
+      </div>
+      <h4>HR и рекрутинг</h4>
+      <p>Скрининг и интервью. Кандидат подключается из мессенджера — без скачиваний.</p>
+    </div>
+    <div class="usecase-card">
+      <div class="uc-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      </div>
+      <h4>Консультации</h4>
+      <p>Сессии по ссылке. Клиент открыл — и говорит, без объяснений.</p>
+    </div>
+    <div class="usecase-card">
+      <div class="uc-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+      </div>
+      <h4>Продажи и демо</h4>
+      <p>Демо и сейлз-звонки с записью. Клиент пересматривает и возвращается с решением.</p>
+    </div>
+    <div class="usecase-card">
+      <div class="uc-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      </div>
+      <h4>Обучение</h4>
+      <p>Лекции и мастер-классы. Запись доступна сразу после окончания — для тех, кто пропустил.</p>
+    </div>
+    <div class="usecase-card">
+      <div class="uc-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="14" height="10" rx="2"/><rect x="14" y="9" width="8" height="11" rx="2"/></svg>
+      </div>
+      <h4>Распределённые команды</h4>
+      <p>Windows, Mac, телефон — все в одном звонке. Без возни с совместимостью.</p>
+    </div>
+  </div>
+</section>
+
 <section class="edge-tile">
   <h2>Три шага.</h2>
   <p class="lead">Ссылка. Клик. Встреча.</p>
@@ -742,7 +983,13 @@ footer {
     <a href="#" class="btn-pill">Начать бесплатно</a>
     <a href="#" class="cta-link">Запросить демо</a>
   </div>
-  <p class="final-microcopy">Тариф «Старт» — 0 ₽ навсегда. Без срока и без карты.</p>
+  <div class="final-proof">
+    <span class="pp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/></svg> До 10 участников бесплатно</span>
+    <span class="pp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/></svg> Без карты</span>
+    <span class="pp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/></svg> Без установки для гостей</span>
+    <span class="pp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/></svg> Запись с первой встречи</span>
+  </div>
+  <p class="final-microcopy">Тариф «Старт» — 0 ₽ навсегда.</p>
 </section>
 
 <footer>
