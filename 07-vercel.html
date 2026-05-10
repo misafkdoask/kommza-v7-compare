@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Коммза — Vercel direction (V7)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --canvas: #ffffff;
+  --gray-50: #fafafa;
+  --gray-100: #ebebeb;
+  --gray-400: #808080;
+  --gray-500: #666666;
+  --gray-600: #4d4d4d;
+  --gray-900: #171717;
+  --black: #000000;
+  --coral: #F97316;
+  --coral-deep: #C2410C;
+  --coral-soft: #FFEDD5;
+  --link-blue: #0072f5;
+  --badge-bg: #ebf5ff;
+  --badge-text: #0068d6;
+  --shadow-border: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  --shadow-card: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 2px 2px, rgba(0, 0, 0, 0.04) 0px 8px 8px -8px, var(--gray-50) 0px 0px 0px 1px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+  background: var(--canvas);
+  color: var(--gray-900);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+code, .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.section { padding: 96px 0; }
+
+h1, h2, h3 {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 600;
+  font-feature-settings: 'liga' 1;
+}
+h1 { font-size: clamp(36px, 5vw, 72px); line-height: 1; letter-spacing: -2.88px; }
+h2 { font-size: clamp(32px, 4vw, 48px); line-height: 1.05; letter-spacing: -2.4px; }
+h3 { font-size: 24px; line-height: 1.33; letter-spacing: -0.96px; font-weight: 600; }
+
+p { color: var(--gray-600); }
+
+/* Header */
+.site-header {
+  border-bottom: 1px solid var(--gray-100);
+  padding: 12px 0;
+  position: sticky; top: 0;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  z-index: 50;
+}
+.site-header .wrap {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo {
+  font-size: 18px; font-weight: 600;
+  letter-spacing: -0.32px;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.logo::before {
+  content: ""; width: 22px; height: 22px;
+  background: var(--gray-900);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+.nav-links { display: flex; gap: 4px; align-items: center; }
+.nav-links a {
+  font-size: 14px; font-weight: 500;
+  padding: 6px 12px; border-radius: 6px;
+  color: var(--gray-600);
+  transition: color .15s ease, background .15s ease;
+}
+.nav-links a:hover { color: var(--gray-900); background: var(--gray-50); }
+.nav-cta {
+  background: var(--gray-900) !important;
+  color: var(--canvas) !important;
+  padding: 8px 16px !important;
+  font-weight: 500 !important;
+  box-shadow: var(--shadow-border);
+}
+.nav-cta:hover { background: var(--coral) !important; }
+@media (max-width: 760px) { .nav-links a:not(.nav-cta) { display: none; } }
+
+/* Hero */
+.hero {
+  padding: 120px 0 80px;
+  text-align: center;
+  position: relative;
+}
+.eyebrow-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--coral-soft);
+  color: var(--coral-deep);
+  font-size: 12px; font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  margin-bottom: 24px;
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+.eyebrow-pill .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--coral);
+}
+.hero h1 {
+  max-width: 16ch;
+  margin: 0 auto 24px;
+}
+.hero-sub {
+  font-size: 20px;
+  color: var(--gray-600);
+  max-width: 56ch;
+  margin: 0 auto 40px;
+  line-height: 1.56;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.hero-ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  font-size: 14px; font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 0; cursor: pointer;
+  transition: background .15s ease, transform .1s ease;
+  letter-spacing: 0;
+}
+.btn:active { transform: scale(0.98); }
+.btn-primary {
+  background: var(--gray-900); color: var(--canvas);
+  box-shadow: var(--shadow-border);
+}
+.btn-primary:hover { background: var(--coral); box-shadow: var(--shadow-border); }
+.btn-outline {
+  background: var(--canvas); color: var(--gray-900);
+  box-shadow: rgb(235, 235, 235) 0px 0px 0px 1px;
+}
+.btn-outline:hover { background: var(--gray-50); }
+
+/* Hero — terminal-style proof */
+.hero-product {
+  margin: 56px auto 0;
+  max-width: 920px;
+  background: var(--gray-900);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: var(--shadow-card);
+}
+.hero-product .room {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 6px;
+  aspect-ratio: 16/9;
+}
+.hero-product .vt {
+  border-radius: 6px;
+  background: linear-gradient(135deg, #2a2a2c, #1a1a1a);
+  position: relative;
+}
+.hero-product .vt::after {
+  content: ""; position: absolute; bottom: 6px; left: 6px;
+  width: 22px; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.20);
+}
+.hero-product .vt-host {
+  background: linear-gradient(135deg, var(--coral), var(--coral-deep));
+  grid-column: 1 / 3; grid-row: 1 / 3;
+}
+.hero-product .vt-host::after { background: rgba(255,255,255,0.55); width: 32px; }
+.hero-product-meta {
+  margin-top: 12px;
+  display: flex; gap: 16px; justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--gray-500);
+  text-transform: uppercase; letter-spacing: 0;
+}
+.hero-product-meta span { display: inline-flex; align-items: center; gap: 6px; }
+.hero-product-meta .live::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--coral); display: inline-block;
+  animation: pulse-dot 1.6s infinite;
+}
+@keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* Trust strip */
+.trust-strip {
+  margin-top: 80px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  border-top: 1px solid var(--gray-100);
+  border-bottom: 1px solid var(--gray-100);
+  padding: 20px 0;
+}
+.trust-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 500;
+  color: var(--gray-600);
+}
+.trust-item svg { width: 16px; height: 16px; color: var(--coral); }
+@media (max-width: 760px) { .trust-strip { grid-template-columns: 1fr 1fr; } }
+
+/* Section heads */
+.section-head { text-align: center; margin-bottom: 56px; }
+.section-head .eyebrow-pill { margin-bottom: 12px; }
+.section-head p {
+  font-size: 18px;
+  color: var(--gray-600);
+  max-width: 60ch;
+  margin: 16px auto 0;
+}
+
+/* Feature pillar grid */
+.feat-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 16px;
+}
+.feat-card {
+  background: var(--canvas);
+  box-shadow: var(--shadow-card);
+  border-radius: 8px;
+  padding: 32px 28px;
+  display: flex; flex-direction: column; gap: 16px;
+  transition: transform .15s ease;
+}
+.feat-card:hover { transform: translateY(-1px); }
+.feat-card.pillar { grid-column: span 2; }
+.feat-card .badge {
+  display: inline-flex;
+  background: var(--badge-bg);
+  color: var(--badge-text);
+  font-size: 11px; font-weight: 500;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  width: fit-content;
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+}
+.feat-card.pillar .badge { background: var(--coral-soft); color: var(--coral-deep); }
+.feat-card h3 { font-size: 22px; letter-spacing: -0.88px; }
+.feat-card p { font-size: 15px; color: var(--gray-600); }
+
+.feat-shot {
+  background: var(--gray-900);
+  border-radius: 6px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-top: auto;
+  box-shadow: var(--shadow-border);
+}
+.feat-shot .tile {
+  aspect-ratio: 16/10;
+  background: linear-gradient(135deg, #2a2a2c, #1a1a1a);
+  border-radius: 3px;
+}
+.feat-shot .tile.host {
+  background: linear-gradient(135deg, var(--coral), var(--coral-deep));
+}
+
+.code-snippet {
+  background: var(--gray-900); color: #fafafa;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: auto;
+}
+.code-snippet .key { color: #FED7AA; }
+.code-snippet .val { color: #4ade80; }
+.code-snippet .punct { color: #888; }
+@media (max-width: 760px) { .feat-grid { grid-template-columns: 1fr; } .feat-card.pillar { grid-column: auto; } }
+
+/* Compare */
+.compare-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.compare-col {
+  background: var(--canvas);
+  box-shadow: var(--shadow-card);
+  border-radius: 8px;
+  padding: 32px 24px;
+}
+.compare-col.highlight {
+  background: var(--gray-900);
+  color: var(--canvas);
+}
+.compare-col.highlight h3 { color: var(--canvas); }
+.compare-col h3 { margin-bottom: 6px; font-size: 20px; }
+.compare-col .compare-desc { font-size: 13px; color: var(--gray-500); margin-bottom: 20px; }
+.compare-col.highlight .compare-desc { color: rgba(255,255,255,0.6); }
+.compare-col ul { list-style: none; }
+.compare-col li {
+  font-size: 14px;
+  padding: 8px 0;
+  border-top: 1px solid var(--gray-100);
+  display: flex; align-items: flex-start; gap: 8px;
+  color: var(--gray-600);
+}
+.compare-col.highlight li { border-color: rgba(255,255,255,0.10); color: rgba(255,255,255,0.85); }
+.compare-col li::before {
+  content: "▲"; color: var(--coral); font-size: 9px;
+  flex-shrink: 0; margin-top: 4px;
+}
+@media (max-width: 760px) { .compare-3 { grid-template-columns: 1fr; } }
+
+/* Steps */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+}
+.step {
+  background: var(--canvas);
+  box-shadow: var(--shadow-card);
+  border-radius: 8px;
+  padding: 28px 24px;
+}
+.step-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  color: var(--coral);
+  margin-bottom: 16px;
+  display: inline-block;
+  background: var(--coral-soft);
+  padding: 2px 8px;
+  border-radius: 9999px;
+}
+.step h4 { font-size: 18px; font-weight: 600; letter-spacing: -0.32px; margin-bottom: 8px; }
+.step p { font-size: 14px; color: var(--gray-600); }
+@media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
+
+/* Final */
+.final {
+  text-align: center;
+  padding: 96px 0;
+  background: var(--gray-50);
+  border-top: 1px solid var(--gray-100);
+  border-bottom: 1px solid var(--gray-100);
+}
+.final h2 { margin-bottom: 16px; }
+.final p { color: var(--gray-600); margin-bottom: 32px; }
+.final-microcopy {
+  margin-top: 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--gray-500);
+}
+
+/* Footer */
+footer {
+  background: var(--canvas);
+  padding: 64px 0 32px;
+  border-top: 1px solid var(--gray-100);
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+.footer-col h4 {
+  font-size: 11px; font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--gray-500);
+  margin-bottom: 16px;
+}
+.footer-col a { display: block; font-size: 14px; padding: 4px 0; color: var(--gray-600); }
+.footer-col a:hover { color: var(--gray-900); }
+.footer-brand .logo { font-size: 22px; }
+.footer-brand p { font-size: 14px; color: var(--gray-500); margin-top: 12px; max-width: 32ch; }
+.footer-bottom {
+  border-top: 1px solid var(--gray-100);
+  padding-top: 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px;
+  color: var(--gray-500);
+  font-family: 'JetBrains Mono', monospace;
+  flex-wrap: wrap; gap: 16px;
+}
+@media (max-width: 760px) { .footer-top { grid-template-columns: 1fr 1fr; } }
+
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="#" class="logo">Коммза</a>
+    <div class="nav-links">
+      <a href="#features">Возможности</a>
+      <a href="#pricing">Тарифы</a>
+      <a href="#docs">Документация</a>
+      <a href="#" class="nav-cta">Начать →</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow-pill"><span class="dot"></span>v7 · live</span>
+    <h1>Видеовстречи. Быстро. Просто. Надёжно.</h1>
+    <p class="hero-sub">Встречи, вебинары и записи — в одном сервисе. Один клик — и команда на встрече.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn btn-primary">Начать бесплатно →</a>
+      <a href="#" class="btn btn-outline">Запросить демо</a>
+    </div>
+
+    <div class="hero-product">
+      <div class="room">
+        <div class="vt vt-host"></div>
+        <div class="vt"></div>
+        <div class="vt"></div>
+        <div class="vt"></div>
+        <div class="vt"></div>
+        <div class="vt"></div>
+      </div>
+    </div>
+    <div class="hero-product-meta">
+      <span class="live">live</span>
+      <span>kommza.io/m/k4q9</span>
+      <span>encrypted</span>
+      <span>recording on</span>
+    </div>
+
+    <div class="trust-strip">
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> HD без задержек</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Шифрование E2E</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/></svg> Любая точка</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M9 11l3 3L22 4"/></svg> Без регистрации</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow-pill"><span class="dot"></span>features</span>
+      <h2>Один продукт. Не докупка.</h2>
+      <p>Вебинары, запись и календарь — внутри тарифа.</p>
+    </div>
+
+    <div class="feat-grid">
+      <div class="feat-card pillar">
+        <span class="badge">pillar</span>
+        <h3>Вебинары и стримы — в тарифе</h3>
+        <p>До 500+ участников с интерактивом, чатом и записью. У других сервисов — отдельная подписка.</p>
+        <div class="feat-shot">
+          <div class="tile host"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+        </div>
+      </div>
+
+      <div class="feat-card">
+        <span class="badge">recording</span>
+        <h3>Запись встреч</h3>
+        <p>Облачное хранение с мгновенным доступом.</p>
+        <div class="code-snippet">
+<span class="key">recording</span><span class="punct">:</span> <span class="val">"on"</span><br>
+<span class="key">storage</span><span class="punct">:</span> <span class="val">"7d"</span><br>
+<span class="key">share</span><span class="punct">:</span> <span class="val">"link"</span>
+        </div>
+      </div>
+
+      <div class="feat-card">
+        <span class="badge">calendar</span>
+        <h3>Календарь</h3>
+        <p>Яндекс и Google. Встреча из события.</p>
+        <div class="code-snippet">
+<span class="key">sync</span><span class="punct">:</span> <span class="val">"google"</span><br>
+<span class="key">auto_link</span><span class="punct">:</span> <span class="val">true</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow-pill"><span class="dot"></span>positioning</span>
+      <h2>Проще корпоративных ВКС. Надёжнее мессенджера.</h2>
+    </div>
+    <div class="compare-3">
+      <div class="compare-col">
+        <h3>Корпоративные ВКС</h3>
+        <p class="compare-desc">IT-отдел, лицензии, недели</p>
+        <ul>
+          <li>Внедрение неделями</li>
+          <li>Нужен IT-отдел</li>
+          <li>Установка приложений</li>
+          <li>Закрытые экосистемы</li>
+        </ul>
+      </div>
+      <div class="compare-col highlight">
+        <h3>Коммза</h3>
+        <p class="compare-desc">Из браузера, всё в тарифе</p>
+        <ul>
+          <li>Без установки</li>
+          <li>Вебинары и записи</li>
+          <li>Гости без регистрации</li>
+          <li>HD и шифрование</li>
+        </ul>
+      </div>
+      <div class="compare-col">
+        <h3>Мессенджеры</h3>
+        <p class="compare-desc">Переписка, не встречи</p>
+        <ul>
+          <li>Без вебинаров</li>
+          <li>Без записи</li>
+          <li>Лимит 8–32</li>
+          <li>Без админ-панели</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow-pill"><span class="dot"></span>how it works</span>
+      <h2>Три шага до встречи.</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">step / 01</span>
+        <h4>Создайте встречу</h4>
+        <p>В календаре, мессенджере или с главной.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">step / 02</span>
+        <h4>Отправьте ссылку</h4>
+        <p>В Telegram, email, рабочий чат.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">step / 03</span>
+        <h4>Начните разговор</h4>
+        <p>Видео, демо, чат, запись — всё в окне.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <h2>Одна ссылка — и вы на встрече.</h2>
+    <p>Один клик — и команда на встрече.</p>
+    <div class="hero-ctas" style="justify-content:center">
+      <a href="#" class="btn btn-primary">Начать бесплатно →</a>
+      <a href="#" class="btn btn-outline">Запросить демо</a>
+    </div>
+    <p class="final-microcopy">$ start --plan=free // 0 ₽ навсегда · without card</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="logo">Коммза</a>
+        <p>Видеовстречи, вебинары и записи в одном сервисе.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#">Возможности</a>
+        <a href="#">Тарифы</a>
+        <a href="#">Безопасность</a>
+        <a href="#">Roadmap</a>
+      </div>
+      <div class="footer-col">
+        <h4>Use cases</h4>
+        <a href="#">Команды</a>
+        <a href="#">HR</a>
+        <a href="#">Обучение</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Политика</a>
+        <a href="#">Условия</a>
+        <a href="#">152-ФЗ</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ООО ЛЕТС · servers in russia</span>
+      <a href="compare.html">← compare</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

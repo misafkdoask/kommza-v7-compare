@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Коммза — Notion direction (V7)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0a1530;
+  --navy-deep: #070f24;
+  --navy-mid: #1a2a52;
+  --canvas: #ffffff;
+  --surface: #f6f5f4;
+  --surface-soft: #fafaf9;
+  --hairline: #e5e3df;
+  --hairline-soft: #ede9e4;
+  --ink: #1a1a1a;
+  --charcoal: #37352f;
+  --slate: #5d5b54;
+  --steel: #787671;
+  --stone: #a4a097;
+  --coral: #F97316;
+  --coral-deep: #C2410C;
+  --tint-peach: #ffe8d4;
+  --tint-rose: #fde0ec;
+  --tint-mint: #d9f3e1;
+  --tint-lavender: #e6e0f5;
+  --tint-sky: #dcecfa;
+  --tint-yellow: #fef7d6;
+  --tint-cream: #f8f5e8;
+  --brand-orange: #dd5b00;
+  --brand-pink: #ff64c8;
+  --brand-purple: #7b3ff2;
+  --brand-teal: #2a9d99;
+  --brand-green: #1aae39;
+  --brand-yellow: #f5d75e;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter Tight', system-ui, sans-serif;
+  background: var(--surface);
+  color: var(--ink);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, .display { font-family: 'Unbounded', 'Inter Tight', system-ui, sans-serif; }
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+.section { padding: 96px 0; }
+
+h1, h2, h3 { font-weight: 600; letter-spacing: -0.02em; }
+h1 { font-size: clamp(48px, 7vw, 80px); line-height: 1.05; letter-spacing: -2px; }
+h2 { font-size: clamp(32px, 4vw, 48px); line-height: 1.15; letter-spacing: -1px; }
+h3 { font-size: 22px; line-height: 1.3; }
+
+p { color: var(--charcoal); }
+
+/* Header */
+.site-header {
+  background: var(--navy);
+  padding: 16px 0;
+  position: sticky; top: 0; z-index: 50;
+}
+.site-header .wrap {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; color: #fff; display: inline-flex; align-items: center; gap: 8px; }
+.logo::before {
+  content: ""; width: 24px; height: 24px; border-radius: 6px;
+  background: var(--coral);
+}
+.nav-links { display: flex; gap: 8px; align-items: center; }
+.nav-links a {
+  font-size: 14px; font-weight: 500;
+  padding: 8px 14px; border-radius: 6px;
+  color: rgba(255,255,255,0.85);
+  transition: background .2s ease;
+}
+.nav-links a:hover { background: rgba(255,255,255,0.10); color: #fff; }
+.nav-cta {
+  background: var(--coral) !important; color: #fff !important;
+  border-radius: 999px;
+  font-weight: 600 !important;
+  padding: 10px 22px !important;
+}
+.nav-cta:hover { background: var(--coral-deep) !important; }
+@media (max-width: 760px) { .nav-links a:not(.nav-cta) { display: none; } }
+
+/* Hero on navy band */
+.hero {
+  background: var(--navy);
+  color: #fff;
+  padding: 80px 0 120px;
+  position: relative;
+  overflow: hidden;
+}
+.hero h1 { color: #fff; }
+.hero-sub {
+  font-size: 22px;
+  color: rgba(255,255,255,0.75);
+  max-width: 56ch;
+  margin: 24px 0 40px;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 32px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  font-size: 15px; font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 999px;
+  border: 0; cursor: pointer;
+  transition: background .2s ease;
+}
+.btn-primary { background: var(--coral); color: #fff; }
+.btn-primary:hover { background: var(--coral-deep); }
+.btn-outline { background: rgba(255,255,255,0.10); color: #fff; }
+.btn-outline:hover { background: rgba(255,255,255,0.20); }
+.btn-light { background: #fff; color: var(--ink); }
+
+.hero-proof {
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.hero-proof::before { content: "·"; color: var(--coral); font-weight: 700; }
+
+/* Decorative dots */
+.dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.dot-row {
+  display: flex; gap: 6px; margin-bottom: 24px;
+}
+.dot-orange { background: var(--brand-orange); }
+.dot-pink { background: var(--brand-pink); }
+.dot-purple { background: var(--brand-purple); }
+.dot-teal { background: var(--brand-teal); }
+.dot-green { background: var(--brand-green); }
+.dot-yellow { background: var(--brand-yellow); }
+
+/* Hero workspace mock */
+.hero-mock {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.3);
+  color: var(--ink);
+}
+.mock-meta {
+  font-size: 12px; color: var(--steel);
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 12px;
+  padding: 0 8px;
+}
+.mock-meta::before {
+  content: ""; width: 16px; height: 16px;
+  background: var(--coral);
+  border-radius: 4px;
+}
+.mock-page-title {
+  font-size: 24px; font-weight: 700;
+  padding: 8px;
+  letter-spacing: -0.5px;
+}
+.mock-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 500;
+  padding: 4px 10px; border-radius: 4px;
+  margin-right: 6px;
+}
+.mock-tag-mint { background: var(--tint-mint); color: #1f6e3a; }
+.mock-tag-peach { background: var(--tint-peach); color: var(--brand-orange); }
+.mock-tag-sky { background: var(--tint-sky); color: #1c5b8e; }
+.mock-meeting-list {
+  margin-top: 12px;
+  border-top: 1px solid var(--hairline-soft);
+}
+.mock-meeting {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  gap: 12px;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--hairline-soft);
+  align-items: center;
+  font-size: 14px;
+}
+.mock-meeting .meeting-icon {
+  width: 24px; height: 24px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 12px; color: #fff;
+}
+.icon-coral { background: var(--coral); }
+.icon-purple { background: var(--brand-purple); }
+.icon-teal { background: var(--brand-teal); }
+.mock-meeting time { font-size: 12px; color: var(--steel); }
+@media (max-width: 760px) { .hero-grid { grid-template-columns: 1fr; gap: 32px; } }
+
+/* Trust pills */
+.trust-row {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin-top: 32px;
+}
+.trust-pill {
+  background: rgba(255,255,255,0.10);
+  color: rgba(255,255,255,0.95);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 13px; font-weight: 500;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.trust-pill svg { width: 14px; height: 14px; color: var(--coral); }
+
+/* Section heads */
+.section-head { text-align: center; margin-bottom: 56px; }
+.section-head .eyebrow {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--coral);
+  margin-bottom: 12px;
+}
+.section-head .eyebrow::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--coral);
+}
+.section-head p { color: var(--steel); max-width: 60ch; margin: 16px auto 0; font-size: 17px; }
+
+/* Pastel feature cards */
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.feat-card {
+  border-radius: 16px;
+  padding: 32px 28px;
+  background: var(--canvas);
+  border: 1px solid var(--hairline-soft);
+}
+.feat-card.tint-peach { background: var(--tint-peach); border-color: transparent; }
+.feat-card.tint-mint { background: var(--tint-mint); border-color: transparent; }
+.feat-card.tint-lavender { background: var(--tint-lavender); border-color: transparent; }
+.feat-card.tint-sky { background: var(--tint-sky); border-color: transparent; }
+.feat-card.tint-rose { background: var(--tint-rose); border-color: transparent; }
+.feat-card.tint-yellow { background: var(--tint-yellow); border-color: transparent; }
+.feat-card.pillar { grid-column: span 2; background: var(--tint-cream); }
+.feat-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: grid; place-items: center;
+  background: rgba(0,0,0,0.06);
+  margin-bottom: 16px;
+  font-size: 18px;
+}
+.feat-card h3 { font-size: 22px; margin-bottom: 8px; letter-spacing: -0.5px; }
+.feat-card p { font-size: 14px; color: var(--charcoal); }
+@media (max-width: 760px) { .feat-grid { grid-template-columns: 1fr; } .feat-card.pillar { grid-column: auto; } }
+
+/* Compare 3 */
+.compare-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.compare-col {
+  background: var(--canvas);
+  border-radius: 16px;
+  padding: 32px 28px;
+  border: 1px solid var(--hairline);
+}
+.compare-col.highlight {
+  background: var(--navy);
+  color: #fff;
+  border-color: var(--navy);
+}
+.compare-col.highlight h3 { color: #fff; }
+.compare-col h3 { margin-bottom: 6px; font-size: 20px; }
+.compare-col .compare-desc { font-size: 14px; color: var(--steel); margin-bottom: 20px; }
+.compare-col.highlight .compare-desc { color: rgba(255,255,255,0.6); }
+.compare-col ul { list-style: none; }
+.compare-col li {
+  font-size: 14px;
+  padding: 8px 0;
+  border-top: 1px solid var(--hairline-soft);
+  display: flex; align-items: flex-start; gap: 8px;
+}
+.compare-col.highlight li { border-color: rgba(255,255,255,0.10); }
+.compare-col li::before { content: "+"; color: var(--coral); font-weight: 700; }
+@media (max-width: 760px) { .compare-3 { grid-template-columns: 1fr; } }
+
+/* Steps */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+}
+.step {
+  background: var(--canvas);
+  border-radius: 16px;
+  padding: 28px 24px;
+  border: 1px solid var(--hairline-soft);
+}
+.step-num {
+  width: 32px; height: 32px;
+  background: var(--coral); color: #fff;
+  border-radius: 8px;
+  display: grid; place-items: center;
+  font-weight: 700; font-size: 14px;
+  margin-bottom: 16px;
+}
+.step h4 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+.step p { font-size: 14px; color: var(--steel); }
+@media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
+
+/* Final CTA */
+.final {
+  background: var(--navy);
+  color: #fff;
+  border-radius: 24px;
+  padding: 96px 32px;
+  text-align: center;
+  margin: 0 32px;
+}
+.final h2 { color: #fff; margin-bottom: 16px; }
+.final p { color: rgba(255,255,255,0.7); margin-bottom: 32px; }
+.final-microcopy { margin-top: 24px; font-size: 13px; color: rgba(255,255,255,0.5); }
+
+/* Footer */
+footer {
+  background: var(--surface-soft);
+  padding: 64px 0 32px;
+  margin-top: 64px;
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+.footer-col h4 { font-size: 13px; font-weight: 600; margin-bottom: 16px; color: var(--steel); }
+.footer-col a { display: block; font-size: 14px; padding: 4px 0; color: var(--charcoal); }
+.footer-col a:hover { color: var(--coral); }
+.footer-brand .logo { color: var(--ink); font-size: 24px; }
+.footer-brand .logo::before { background: var(--coral); }
+.footer-brand p { font-size: 14px; color: var(--steel); margin-top: 12px; max-width: 32ch; }
+.footer-bottom {
+  border-top: 1px solid var(--hairline);
+  padding-top: 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 13px;
+  color: var(--steel);
+  flex-wrap: wrap; gap: 16px;
+}
+@media (max-width: 760px) { .footer-top { grid-template-columns: 1fr 1fr; } }
+
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="#" class="logo">Коммза</a>
+    <div class="nav-links">
+      <a href="#features">Возможности</a>
+      <a href="#pricing">Тарифы</a>
+      <a href="#" class="nav-cta">Начать бесплатно</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="dot-row">
+          <span class="dot dot-orange"></span>
+          <span class="dot dot-teal"></span>
+          <span class="dot dot-yellow"></span>
+        </div>
+        <h1>Видеовстречи. Быстро. Просто. Надёжно.</h1>
+        <p class="hero-sub">Встречи, вебинары и записи — в одном сервисе. Один клик — и команда на встрече.</p>
+        <div class="hero-ctas">
+          <a href="#" class="btn btn-primary">Начать бесплатно →</a>
+          <a href="#" class="btn btn-outline">Запросить демо</a>
+        </div>
+        <p class="hero-proof">Гости подключаются по ссылке. Без установки и регистрации.</p>
+
+        <div class="trust-row">
+          <span class="trust-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> HD-видео</span>
+          <span class="trust-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Шифрование</span>
+          <span class="trust-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/></svg> Из любой точки</span>
+          <span class="trust-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M9 11l3 3L22 4"/></svg> Без регистрации</span>
+        </div>
+      </div>
+
+      <div class="hero-mock">
+        <div class="mock-meta">Workspace · Команда</div>
+        <div class="mock-page-title">Встречи на сегодня</div>
+        <div style="padding: 0 8px">
+          <span class="mock-tag mock-tag-mint">● активно</span>
+          <span class="mock-tag mock-tag-peach">● запланировано</span>
+        </div>
+        <div class="mock-meeting-list">
+          <div class="mock-meeting">
+            <div class="meeting-icon icon-coral">▶</div>
+            <div>
+              <div style="font-weight:500">Дейли · команда</div>
+              <span class="mock-tag mock-tag-mint">live</span>
+            </div>
+            <time>09:00</time>
+          </div>
+          <div class="mock-meeting">
+            <div class="meeting-icon icon-purple">○</div>
+            <div>
+              <div style="font-weight:500">Демо клиенту</div>
+              <span class="mock-tag mock-tag-peach">скоро</span>
+            </div>
+            <time>14:00</time>
+          </div>
+          <div class="mock-meeting">
+            <div class="meeting-icon icon-teal">★</div>
+            <div>
+              <div style="font-weight:500">Вебинар: онбординг</div>
+              <span class="mock-tag mock-tag-sky">500+</span>
+            </div>
+            <time>17:00</time>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Возможности</span>
+      <h2>Всё, что нужно для встречи. В одном тарифе.</h2>
+      <p>Вебинары, запись и календарь — внутри тарифа, а не как допродажа.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card pillar tint-peach">
+        <div class="feat-icon" style="background:rgba(221,91,0,0.15);color:var(--brand-orange)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M5 12a7 7 0 0 1 14 0"/><path d="M2 12a10 10 0 0 1 20 0"/><circle cx="12" cy="12" r="2.5" fill="currentColor"/></svg>
+        </div>
+        <h3>Вебинары и стримы — в тарифе</h3>
+        <p>До 500+ участников с интерактивом, чатом и записью. У других сервисов вебинары — отдельная подписка.</p>
+      </div>
+      <div class="feat-card tint-mint">
+        <div class="feat-icon" style="background:rgba(26,174,57,0.15);color:#1aae39">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5" fill="currentColor"/></svg>
+        </div>
+        <h3>Запись встреч</h3>
+        <p>Облачное хранение с мгновенным доступом.</p>
+      </div>
+      <div class="feat-card tint-lavender">
+        <div class="feat-icon" style="background:rgba(123,63,242,0.15);color:var(--brand-purple)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M9 10l3 2-3 2"/></svg>
+        </div>
+        <h3>Демо экрана</h3>
+        <p>Окно или весь экран. Презентации, документы, код.</p>
+      </div>
+      <div class="feat-card tint-sky">
+        <div class="feat-icon" style="background:rgba(28,91,142,0.15);color:#1c5b8e">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M9 15l2 2 4-4"/></svg>
+        </div>
+        <h3>Календарь</h3>
+        <p>Яндекс и Google. Встреча из события автоматически.</p>
+      </div>
+      <div class="feat-card tint-rose">
+        <div class="feat-icon" style="background:rgba(255,100,200,0.15);color:#a02e6d">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg>
+        </div>
+        <h3>На любом устройстве</h3>
+        <p>iOS, Android, браузер.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Позиционирование</span>
+      <h2>Проще корпоративных ВКС. Надёжнее мессенджера.</h2>
+    </div>
+    <div class="compare-3">
+      <div class="compare-col">
+        <h3>Корпоративные ВКС</h3>
+        <p class="compare-desc">IT-отдел, лицензии, недели</p>
+        <ul>
+          <li>Внедрение неделями</li>
+          <li>Нужен IT-отдел</li>
+          <li>Установка приложений</li>
+          <li>Закрытые экосистемы</li>
+        </ul>
+      </div>
+      <div class="compare-col highlight">
+        <h3>Коммза</h3>
+        <p class="compare-desc">Из браузера, всё в тарифе</p>
+        <ul>
+          <li>Без установки</li>
+          <li>Вебинары и записи</li>
+          <li>Гости без регистрации</li>
+          <li>HD и шифрование</li>
+        </ul>
+      </div>
+      <div class="compare-col">
+        <h3>Мессенджеры</h3>
+        <p class="compare-desc">Переписка, не встречи</p>
+        <ul>
+          <li>Без вебинаров</li>
+          <li>Без записи</li>
+          <li>Лимит 8–32</li>
+          <li>Без админ-панели</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Как это работает</span>
+      <h2>Три шага до встречи.</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Создайте встречу</h4>
+        <p>Один клик — в календаре, мессенджере или с главной.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Отправьте ссылку</h4>
+        <p>В Telegram, email, рабочий чат.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Начните разговор</h4>
+        <p>Видео, демо, чат, запись — всё в окне.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="final">
+    <h2>Одна ссылка — и вы на встрече.</h2>
+    <p>Один клик — и команда на встрече. Без карты.</p>
+    <div class="hero-ctas" style="justify-content:center">
+      <a href="#" class="btn btn-primary">Начать бесплатно</a>
+      <a href="#" class="btn btn-light">Запросить демо</a>
+    </div>
+    <p class="final-microcopy">Тариф «Старт» — 0 ₽ навсегда. Без срока и без карты.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="logo">Коммза</a>
+        <p>Видеовстречи, вебинары и записи в одном сервисе.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Продукт</h4>
+        <a href="#">Возможности</a>
+        <a href="#">Тарифы</a>
+        <a href="#">Безопасность</a>
+      </div>
+      <div class="footer-col">
+        <h4>Сценарии</h4>
+        <a href="#">Команды</a>
+        <a href="#">HR</a>
+        <a href="#">Обучение</a>
+      </div>
+      <div class="footer-col">
+        <h4>Юр.</h4>
+        <a href="#">Политика</a>
+        <a href="#">Условия</a>
+        <a href="#">152-ФЗ</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ООО ЛЕТС · Серверы в России</span>
+      <a href="compare.html">← Сравнить версии</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

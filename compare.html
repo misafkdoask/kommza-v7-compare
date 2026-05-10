@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kommza V7 — 6 brand prototypes</title>
+<style>
+:root {
+  --ink: #0E0E10;
+  --paper: #FBF8F0;
+  --bone: #F0ECE1;
+  --accent: #F97316;
+  --accent-deep: #C2410C;
+  --line: rgba(14,14,16,0.10);
+  --slate: #696969;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter Tight', system-ui, sans-serif;
+  background: var(--bone);
+  color: var(--ink);
+  padding: 64px 32px 96px;
+  line-height: 1.5;
+}
+.wrap { max-width: 1280px; margin: 0 auto; }
+header {
+  margin-bottom: 48px;
+}
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--slate); margin-bottom: 16px;
+}
+.eyebrow::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent);
+}
+h1 {
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin-bottom: 16px;
+}
+.lead {
+  font-size: 18px;
+  color: var(--slate);
+  max-width: 60ch;
+  margin-bottom: 12px;
+}
+.meta {
+  font-size: 13px;
+  color: var(--slate);
+  font-family: ui-monospace, 'SF Mono', monospace;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform .25s ease, box-shadow .25s ease;
+  display: flex;
+  flex-direction: column;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px rgba(14,14,16,0.08);
+}
+.card-thumb {
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+.card-body {
+  padding: 24px;
+  display: flex; flex-direction: column; gap: 12px;
+  flex: 1;
+}
+.card-title {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.card-num {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--slate);
+  letter-spacing: 0.06em;
+  font-family: ui-monospace, monospace;
+}
+.card-desc {
+  font-size: 14px;
+  color: var(--slate);
+  line-height: 1.5;
+}
+.card-foot {
+  margin-top: auto;
+  padding-top: 16px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 13px;
+  color: var(--slate);
+  font-family: ui-monospace, monospace;
+}
+.card-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--ink); color: var(--paper);
+  padding: 8px 16px; border-radius: 999px;
+  font-size: 13px; font-weight: 500;
+  text-decoration: none;
+  transition: background .2s ease;
+}
+.card-link:hover { background: var(--accent-deep); }
+.card-link::after { content: "→"; }
+
+/* Thumbs — quick visual fingerprint of each brand */
+.thumb-mastercard {
+  background: #F3F0EE;
+  display: grid; place-items: center;
+}
+.thumb-mastercard::before {
+  content: ""; width: 120px; height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #F97316, #C2410C);
+}
+.thumb-mastercard::after {
+  content: "→"; position: absolute; bottom: 30px; right: calc(50% - 70px);
+  width: 36px; height: 36px; border-radius: 50%;
+  background: #fff; display: grid; place-items: center;
+  font-size: 14px; color: #141413;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.thumb-airbnb {
+  background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.thumb-airbnb::before {
+  content: "встретиться · 25.04 · 14:00";
+  background: #fff; color: #222; font-size: 12px; font-weight: 500;
+  padding: 12px 20px; border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  border: 1px solid #ddd;
+}
+.thumb-airbnb::after {
+  content: "🔍"; position: absolute;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: #F97316; color: #fff;
+  display: grid; place-items: center;
+  right: 32%; top: 50%; transform: translateY(-50%);
+  font-size: 14px;
+}
+
+.thumb-calcom {
+  background: #fff;
+  display: grid; grid-template-columns: 1fr 1fr; padding: 16px; gap: 8px;
+}
+.thumb-calcom::before {
+  content: "30 min"; padding: 32px 16px; border-radius: 12px;
+  background: #f5f5f5; font-size: 14px; font-weight: 600;
+  display: grid; place-items: center;
+}
+.thumb-calcom::after {
+  content: "Видеовстреча"; padding: 32px 16px; border-radius: 12px;
+  background: #111; color: #fff; font-size: 14px; font-weight: 600;
+  display: grid; place-items: center;
+}
+
+.thumb-linear {
+  background: #010102;
+  display: grid; place-items: center;
+  position: relative;
+}
+.thumb-linear::before {
+  content: "Видеовстречи."; color: #f7f8f8;
+  font-size: 28px; font-weight: 600; letter-spacing: -0.5px;
+}
+.thumb-linear::after {
+  content: ""; position: absolute; top: 16px; left: 16px;
+  width: 16px; height: 16px; border-radius: 4px;
+  background: #F97316;
+}
+
+.thumb-notion {
+  background: linear-gradient(180deg, #0a1530 0%, #0a1530 60%, #f6f5f4 60%);
+  position: relative;
+  padding: 16px;
+}
+.thumb-notion::before {
+  content: "Коммза";
+  color: #fff;
+  font-size: 22px; font-weight: 600;
+  position: absolute;
+  top: 24px; left: 24px;
+  letter-spacing: -0.5px;
+}
+.thumb-notion::after {
+  content: "+ Создать встречу";
+  background: #F97316; color: #fff;
+  padding: 8px 18px; border-radius: 999px;
+  font-size: 12px; font-weight: 600;
+  position: absolute;
+  bottom: 24px; left: 24px;
+}
+
+.thumb-apple {
+  background: #000;
+  display: grid; place-items: center;
+  position: relative;
+}
+.thumb-apple::before {
+  content: "Встречи. Просто.";
+  color: #fff;
+  font-size: 32px; font-weight: 600; letter-spacing: -0.02em;
+}
+.thumb-apple::after {
+  content: "Узнать больше →"; color: #F97316;
+  font-size: 14px; position: absolute; bottom: 24px;
+  font-weight: 400;
+}
+
+.thumb-vercel {
+  background: #fff;
+  position: relative;
+}
+.thumb-vercel::before {
+  content: "$ kommza meet new";
+  position: absolute; top: 50%; left: 24px; transform: translateY(-50%);
+  font-family: ui-monospace, 'SF Mono', monospace;
+  font-size: 14px; color: #171717;
+  background: #fafafa;
+  padding: 12px 16px; border-radius: 6px;
+  box-shadow: rgba(0,0,0,0.08) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 2px 2px;
+}
+.thumb-vercel::after {
+  content: "→ ok"; position: absolute; bottom: 24px; right: 24px;
+  font-family: ui-monospace, monospace;
+  font-size: 12px; color: #F97316;
+  text-transform: uppercase;
+}
+
+.thumb-stripe {
+  background:
+    radial-gradient(ellipse at 25% 25%, rgba(249,115,22,0.45) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 40%, rgba(249,107,238,0.35) 0%, transparent 50%),
+    linear-gradient(180deg, #f6f9fc, #fff);
+  position: relative;
+}
+.thumb-stripe::before {
+  content: "500+";
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  font-size: 64px; font-weight: 200; color: #0d253d;
+  letter-spacing: -2px;
+  font-feature-settings: 'tnum';
+}
+.thumb-stripe::after {
+  content: "участников"; position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  font-size: 12px; color: #64748d; font-weight: 400;
+}
+
+.thumb-sanity {
+  background: #0b0b0b;
+  display: grid; place-items: center;
+  position: relative;
+}
+.thumb-sanity::before {
+  content: "Просто.";
+  color: #F97316;
+  font-size: 56px; font-weight: 400; letter-spacing: -2.5px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.thumb-sanity::after {
+  content: "— meeting infrastructure"; position: absolute; top: 16px; left: 16px;
+  font-family: ui-monospace, monospace;
+  font-size: 10px; color: #797979; text-transform: uppercase;
+}
+
+footer {
+  margin-top: 96px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--slate);
+  font-family: ui-monospace, monospace;
+}
+footer p { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Comparison set</div>
+    <h1>Kommza V7 — 6 prototype directions</h1>
+    <p class="lead">Один и тот же копи Kommza V6, упакованный в 6 разных design-DNA из VoltAgent/awesome-design-md. Coral <code>#F97316</code> сохранён везде как primary CTA. Меняется bg, type, radius, spacing, layout-rhythm, decoration.</p>
+    <p class="meta">Source: github.com/VoltAgent/awesome-design-md · spec: github.com/google-labs-code/design.md (Apache 2.0)</p>
+  </header>
+
+  <div class="grid">
+    <article class="card">
+      <div class="card-thumb thumb-mastercard"></div>
+      <div class="card-body">
+        <div class="card-num">01 / Mastercard</div>
+        <h2 class="card-title">Editorial cream + circular portraits</h2>
+        <p class="card-desc">Warm cream canvas <code>#F3F0EE</code>, circular feature portraits с satellite-CTAs, ghost watermark headlines, ink-black footer. Соответствует текущей Kommza-эстетике на 80% — самый прямой fit.</p>
+        <div class="card-foot">
+          <span>cream · pill 20/40/999 · -2% tracking</span>
+          <a class="card-link" href="01-mastercard.html">Open</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-thumb thumb-airbnb"></div>
+      <div class="card-body">
+        <div class="card-num">02 / Airbnb</div>
+        <h2 class="card-title">Pill-search hero + soft white cards</h2>
+        <p class="card-desc">White canvas, pill-shaped search-bar в hero, soft-rounded property-style cards (14px), большие фото-сцены. Friendly consumer marketplace tone — самый "потребительский" вариант.</p>
+        <div class="card-foot">
+          <span>white · pill 14/full · soft photo</span>
+          <a class="card-link" href="02-airbnb.html">Open</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-thumb thumb-calcom"></div>
+      <div class="card-body">
+        <div class="card-num">03 / Cal.com</div>
+        <h2 class="card-title">Product UI fragments + dark navy foot</h2>
+        <p class="card-desc">White canvas, Cal Sans-style display 64px tight tracking, product UI mockups встроены прямо в feature cards, тёмный navy footer закрывает scroll. Closest продуктовый сосед.</p>
+        <div class="card-foot">
+          <span>white + dark · 12px cards · UI-in-cards</span>
+          <a class="card-link" href="03-calcom.html">Open</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-thumb thumb-linear"></div>
+      <div class="card-body">
+        <div class="card-num">04 / Linear</div>
+        <h2 class="card-title">Pitch-black engineering canvas</h2>
+        <p class="card-desc">Near-black <code>#010102</code> canvas, light gray text, charcoal panels с hairline-borders, dense product UI screenshots. Coral вместо lavender как accent. Premium-craft signal.</p>
+        <div class="card-foot">
+          <span>dark · charcoal panels · craft tone</span>
+          <a class="card-link" href="04-linear.html">Open</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-thumb thumb-notion"></div>
+      <div class="card-body">
+        <div class="card-num">05 / Notion</div>
+        <h2 class="card-title">Navy hero band + pastel feature cards</h2>
+        <p class="card-desc">Глубокий navy hero <code>#0a1530</code>, warm beige body, pastel-tinted feature cards (peach, mint, sky, lavender), illustrative dots/lines. Friendly workspace tone.</p>
+        <div class="card-foot">
+          <span>navy hero + beige body · pastel cards</span>
+          <a class="card-link" href="05-notion.html">Open</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-thumb thumb-apple"></div>
+      <div class="card-body">
+        <div class="card-num">06 / Apple</div>
+        <h2 class="card-title">Cinematic alternation + zero chrome</h2>
+        <p class="card-desc">Edge-to-edge tiles, alternating black/white surfaces, SF Pro Display 56px tight, single signature drop-shadow только под mockup. Photography-first, museum-gallery feel.</p>
+        <div class="card-foot">
+          <span>black/white tiles · SF Pro · museum</span>
+          <a class="card-link" href="06-apple.html">Open</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-thumb thumb-vercel"></div>
+      <div class="card-body">
+        <div class="card-num">07 / Vercel</div>
+        <h2 class="card-title">Shadow-as-border + terminal voice</h2>
+        <p class="card-desc">Pure white + #171717 ink. Geist-style tight tracking (-2.4px). Shadow-as-border (`box-shadow 0px 0px 0px 1px`). Pill badges 9999px. JetBrains Mono code-blocks вместо стандартного UI.</p>
+        <div class="card-foot">
+          <span>white · 6px · mono · ring-shadow</span>
+          <a class="card-link" href="07-vercel.html">Open</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-thumb thumb-stripe"></div>
+      <div class="card-body">
+        <div class="card-num">08 / Stripe</div>
+        <h2 class="card-title">Gradient mesh + weight-200 elegance</h2>
+        <p class="card-desc">Radial mesh hero (coral + magenta + indigo), Inter weight 200/300 для display. Tabular figures (500+, 0 ₽). Cream band с pillar feature. Premium fintech sophistication.</p>
+        <div class="card-foot">
+          <span>mesh · weight 200 · tnum · cream band</span>
+          <a class="card-link" href="08-stripe.html">Open</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-thumb thumb-sanity"></div>
+      <div class="card-body">
+        <div class="card-num">09 / Sanity</div>
+        <h2 class="card-title">112px display + IBM Plex Mono labels</h2>
+        <p class="card-desc">Pitch-black `#0b0b0b` + Space Grotesk 112px hero -4.48px tracking. IBM Plex Mono uppercase eyebrows ("— meeting infrastructure / v7"). Pill CTA. Inverted light band посередине.</p>
+        <div class="card-foot">
+          <span>black · 112px display · ibm plex mono</span>
+          <a class="card-link" href="09-sanity.html">Open</a>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <p>Все 6 — одно и то же содержание. Различие — упаковка.</p>
+    <p>Server: cd ~/claude/kommza/v7-compare && python3 -m http.server 9200 → http://localhost:9200/compare.html</p>
+  </footer>
+</div>
+</body>
+</html>

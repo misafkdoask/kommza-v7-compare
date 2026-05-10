@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Коммза — Apple direction (V7)</title>
+<style>
+:root {
+  --canvas: #ffffff;
+  --parchment: #f5f5f7;
+  --pearl: #fafafc;
+  --ink: #1d1d1f;
+  --ink-muted-80: #333333;
+  --ink-muted-48: #7a7a7a;
+  --hairline: #e0e0e0;
+  --divider: #f0f0f0;
+  --tile-1: #272729;
+  --tile-2: #2a2a2c;
+  --tile-3: #252527;
+  --black: #000000;
+  --chip: #d2d2d7;
+  --coral: #F97316;
+  --coral-deep: #C2410C;
+  --action-blue: #0066cc;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+  line-height: 1.47;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.022em;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+.wrap { max-width: 1024px; margin: 0 auto; padding: 0 22px; }
+
+h1, h2, h3 { font-family: 'SF Pro Display', -apple-system, system-ui, sans-serif; font-weight: 600; }
+h1 { font-size: clamp(40px, 5.5vw, 56px); line-height: 1.07; letter-spacing: -0.005em; }
+h2 { font-size: clamp(32px, 4vw, 48px); line-height: 1.08; letter-spacing: -0.004em; }
+h3 { font-size: 28px; line-height: 1.14; letter-spacing: 0.007em; font-weight: 600; }
+
+p { line-height: 1.47; }
+
+/* Header — global Apple-style nav */
+.site-header {
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--hairline);
+  padding: 0;
+  position: sticky; top: 0;
+  z-index: 50;
+}
+.site-header .wrap {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 44px;
+}
+.logo {
+  font-size: 18px; font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a {
+  font-size: 12px; font-weight: 400;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.nav-links a:hover { color: var(--ink-muted-48); }
+.nav-cta { font-weight: 600 !important; color: var(--coral) !important; }
+@media (max-width: 760px) { .nav-links a:not(.nav-cta) { display: none; } }
+
+/* Tile sections */
+.tile {
+  padding: 100px 0 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.tile-light { background: var(--canvas); color: var(--ink); }
+.tile-pearl { background: var(--parchment); color: var(--ink); }
+.tile-dark { background: var(--black); color: #fff; }
+.tile-tile-1 { background: var(--tile-1); color: #fff; }
+
+.tile h2, .tile h1 { margin-bottom: 12px; }
+.tile-dark h1, .tile-dark h2, .tile-dark h3 { color: #fff; }
+.tile-tile-1 h1, .tile-tile-1 h2, .tile-tile-1 h3 { color: #fff; }
+
+.lead {
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-weight: 400;
+  letter-spacing: 0.007em;
+  line-height: 1.14;
+  max-width: 50ch;
+  margin: 12px auto 24px;
+}
+.tile-dark .lead, .tile-tile-1 .lead { color: rgba(255,255,255,0.95); }
+
+.cta-row {
+  display: inline-flex; gap: 16px; align-items: center; justify-content: center;
+  flex-wrap: wrap;
+}
+.cta-link {
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  color: var(--coral);
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.cta-link:hover { text-decoration: underline; }
+.cta-link::after { content: "›"; font-weight: 600; }
+.tile-dark .cta-link, .tile-tile-1 .cta-link { color: #FED7AA; }
+
+.btn-pill {
+  background: var(--coral); color: #fff;
+  font-size: 17px; font-weight: 400;
+  letter-spacing: -0.022em;
+  padding: 8px 22px;
+  border-radius: 980px;
+  border: 0; cursor: pointer;
+  transition: background .2s ease;
+  display: inline-block;
+}
+.btn-pill:hover { background: var(--coral-deep); }
+.btn-secondary {
+  background: rgba(0,0,0,0.06); color: var(--ink);
+  padding: 8px 22px; border-radius: 980px;
+  font-size: 17px; font-weight: 400;
+  display: inline-block;
+}
+.tile-dark .btn-secondary, .tile-tile-1 .btn-secondary {
+  background: rgba(255,255,255,0.10); color: #fff;
+}
+
+/* Hero product image */
+.tile-product-mock {
+  margin-top: 56px;
+  max-width: 880px;
+  margin-left: auto; margin-right: auto;
+  aspect-ratio: 16/10;
+  background: linear-gradient(135deg, var(--tile-1), var(--tile-2));
+  border-radius: 24px 24px 0 0;
+  position: relative;
+  overflow: hidden;
+  padding: 32px;
+  box-shadow: 0 80px 120px -40px rgba(0,0,0,0.4);
+}
+.tile-product-mock .room {
+  width: 100%; height: 100%;
+  display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 1fr); gap: 8px;
+}
+.tile-product-mock .vt {
+  border-radius: 6px;
+  background: linear-gradient(135deg, #2a2a2c, #1f1f21);
+  position: relative;
+}
+.tile-product-mock .vt::after {
+  content: ""; position: absolute; bottom: 8px; left: 8px;
+  width: 28px; height: 6px; border-radius: 2px; background: rgba(255,255,255,0.18);
+}
+.tile-product-mock .vt-host {
+  background: linear-gradient(135deg, var(--coral), var(--coral-deep));
+  grid-column: 1 / 3; grid-row: 1 / 3;
+}
+.tile-product-mock .vt-host::after { background: rgba(255,255,255,0.5); width: 40px; }
+.tile-product-mock .vt-screen {
+  background: linear-gradient(135deg, #1a3a52, #0f2538);
+  grid-column: 3 / 5; grid-row: 1 / 3;
+}
+.duo-mock-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
+}
+.duo-mock-grid .vt {
+  aspect-ratio: 16/10;
+  border-radius: 4px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+}
+.duo-cell.light .duo-mock-grid .vt {
+  background: linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.10));
+}
+.duo-mock-grid .vt-host {
+  background: linear-gradient(135deg, var(--coral), var(--coral-deep));
+}
+
+/* Trust strip footer of hero */
+.trust-strip {
+  padding: 24px 0;
+  border-top: 1px solid var(--divider);
+  background: var(--parchment);
+  font-size: 14px;
+}
+.trust-strip .wrap {
+  display: flex; flex-wrap: wrap; gap: 32px; justify-content: center;
+}
+.trust-item { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-muted-80); }
+.trust-item svg { width: 16px; height: 16px; color: var(--coral); }
+
+/* Two-up grid in tile */
+.duo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 80px;
+  padding: 0 22px;
+}
+.duo-cell {
+  border-radius: 24px;
+  padding: 56px 44px;
+  text-align: center;
+  position: relative;
+  min-height: 480px;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.duo-cell.dark { background: var(--tile-1); color: #fff; }
+.duo-cell.dark h3 { color: #fff; }
+.duo-cell.light { background: var(--parchment); }
+.duo-cell .duo-headline { font-size: 32px; font-weight: 600; line-height: 1.1; letter-spacing: -0.5px; max-width: 18ch; margin: 0 auto 12px; }
+.duo-cell .duo-sub { font-size: 17px; opacity: 0.8; max-width: 30ch; margin: 0 auto 24px; }
+.duo-cell .duo-mock {
+  aspect-ratio: 16/9;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  margin-top: auto;
+}
+.duo-cell.light .duo-mock { background: rgba(0,0,0,0.06); }
+@media (max-width: 760px) { .duo-grid { grid-template-columns: 1fr; padding: 0 12px; } }
+
+/* Edge-to-edge tile */
+.edge-tile {
+  padding: 96px 22px;
+  text-align: center;
+}
+.edge-tile h2 { max-width: 18ch; margin: 0 auto 16px; }
+.edge-tile .lead { margin-bottom: 32px; }
+
+/* Feature card grid */
+.feat-tiles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 80px;
+}
+.feat-tiles .tile-card {
+  background: var(--parchment);
+  border-radius: 24px;
+  padding: 48px 36px;
+  min-height: 360px;
+  display: flex; flex-direction: column;
+}
+.feat-tiles .tile-card.dark { background: var(--tile-1); color: #fff; }
+.feat-tiles .tile-card.dark h3 { color: #fff; }
+.feat-tiles .tile-card .meta {
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--coral);
+  margin-bottom: 16px;
+}
+.feat-tiles .tile-card h3 { font-size: 28px; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 12px; }
+.feat-tiles .tile-card p { font-size: 17px; line-height: 1.4; max-width: 30ch; }
+.feat-tiles .tile-card.dark p { color: rgba(255,255,255,0.85); }
+.feat-tiles .tile-card .mock {
+  aspect-ratio: 16/9;
+  border-radius: 12px;
+  background: rgba(0,0,0,0.06);
+  margin-top: auto;
+}
+.feat-tiles .tile-card.dark .mock { background: rgba(255,255,255,0.08); }
+@media (max-width: 760px) { .feat-tiles { grid-template-columns: 1fr; } }
+
+/* Compare table — Apple-spec style */
+.compare-table {
+  margin-top: 80px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--hairline);
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+}
+.compare-cell {
+  background: var(--canvas);
+  padding: 40px 28px;
+  text-align: left;
+}
+.compare-cell.highlight {
+  background: var(--ink);
+  color: #fff;
+}
+.compare-cell.highlight h3 { color: #fff; }
+.compare-cell h3 { font-size: 24px; margin-bottom: 6px; }
+.compare-cell .compare-desc { font-size: 14px; color: var(--ink-muted-48); margin-bottom: 20px; }
+.compare-cell.highlight .compare-desc { color: rgba(255,255,255,0.6); }
+.compare-cell ul { list-style: none; }
+.compare-cell li {
+  font-size: 14px;
+  padding: 10px 0;
+  border-top: 1px solid var(--divider);
+}
+.compare-cell.highlight li { border-color: rgba(255,255,255,0.10); }
+.compare-cell li::before { content: "+ "; color: var(--coral); font-weight: 600; }
+@media (max-width: 760px) { .compare-table { grid-template-columns: 1fr; } }
+
+/* Steps */
+.step-row {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 64px;
+  margin: 80px auto 0;
+  text-align: left;
+  max-width: 920px;
+  padding: 0 22px;
+}
+.step h4 { font-size: 24px; font-weight: 600; letter-spacing: -0.3px; margin-bottom: 8px; }
+.step p { font-size: 15px; color: var(--ink-muted-48); }
+.step-num {
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--coral);
+  margin-bottom: 16px;
+}
+@media (max-width: 760px) { .step-row { grid-template-columns: 1fr; gap: 32px; } }
+
+/* Final */
+.final {
+  text-align: center;
+  padding: 96px 22px 120px;
+  background: var(--canvas);
+}
+.final h2 { max-width: 18ch; margin: 0 auto 16px; }
+.final-microcopy { margin-top: 24px; font-size: 13px; color: var(--ink-muted-48); }
+
+/* Footer — dense Apple-style */
+footer {
+  background: var(--parchment);
+  padding: 24px 0 22px;
+  border-top: 1px solid var(--hairline);
+  font-size: 12px;
+  color: var(--ink-muted-48);
+  letter-spacing: -0.01em;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--hairline);
+  margin-bottom: 16px;
+}
+.footer-col h4 { font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+.footer-col a {
+  display: block; padding: 4px 0;
+  font-size: 12px;
+  line-height: 2.41;
+  color: var(--ink-muted-48);
+}
+.footer-col a:hover { color: var(--ink); }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 12px;
+  font-size: 11px;
+  flex-wrap: wrap; gap: 8px;
+}
+@media (max-width: 760px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="#" class="logo">Коммза</a>
+    <div class="nav-links">
+      <a href="#features">Возможности</a>
+      <a href="#pricing">Тарифы</a>
+      <a href="#" class="nav-cta">Начать бесплатно</a>
+    </div>
+  </div>
+</header>
+
+<section class="tile tile-dark">
+  <div class="wrap">
+    <h1>Видеовстречи.</h1>
+    <h1 style="color:var(--coral)">Просто. Быстро. Надёжно.</h1>
+    <p class="lead">Встречи, вебинары и записи — в одном сервисе. Один клик — и команда на встрече.</p>
+    <div class="cta-row">
+      <a href="#" class="btn-pill">Начать бесплатно</a>
+      <a href="#" class="cta-link">Запросить демо</a>
+    </div>
+  </div>
+  <div class="tile-product-mock">
+    <div class="room">
+      <div class="vt vt-host"></div>
+      <div class="vt vt-screen"></div>
+      <div class="vt"></div>
+      <div class="vt"></div>
+      <div class="vt"></div>
+      <div class="vt"></div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-strip">
+  <div class="wrap">
+    <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> HD без задержек</span>
+    <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Шифрование</span>
+    <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/></svg> Из любой точки мира</span>
+    <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M9 11l3 3L22 4"/></svg> Гости без регистрации</span>
+  </div>
+</div>
+
+<section class="edge-tile" id="features">
+  <h2>Один продукт. Всё для встречи.</h2>
+  <p class="lead">Вебинары, запись и календарь — внутри тарифа. Не как допродажа.</p>
+  <div class="cta-row">
+    <a href="#" class="cta-link">Узнать подробнее</a>
+  </div>
+
+  <div class="duo-grid">
+    <div class="duo-cell dark">
+      <div>
+        <p class="duo-headline">Вебинары и стримы.<br>До 500+ участников.</p>
+        <p class="duo-sub">Pillar feature. Включено в каждый тариф.</p>
+      </div>
+      <div class="duo-mock"><div class="duo-mock-grid"><span class="vt vt-host"></span><span class="vt"></span><span class="vt"></span><span class="vt"></span><span class="vt"></span><span class="vt"></span></div></div>
+    </div>
+    <div class="duo-cell light">
+      <div>
+        <p class="duo-headline">Запись встречи.<br>Сразу после.</p>
+        <p class="duo-sub">Облачное хранение. Делитесь ссылкой с теми, кто пропустил.</p>
+      </div>
+      <div class="duo-mock"><div class="duo-mock-grid"><span class="vt vt-host"></span><span class="vt"></span><span class="vt"></span><span class="vt"></span><span class="vt"></span><span class="vt"></span></div></div>
+    </div>
+  </div>
+
+  <div class="feat-tiles">
+    <div class="tile-card">
+      <p class="meta">Демо экрана</p>
+      <h3>Покажите всё.<br>Целиком или окно.</h3>
+      <p>Презентации, документы, код — выбирайте, что видит собеседник.</p>
+      <div class="mock"></div>
+    </div>
+    <div class="tile-card dark">
+      <p class="meta">Календарь</p>
+      <h3>Яндекс. Google.<br>Автоматически.</h3>
+      <p>Встреча создаётся прямо из события. Никакой ручной работы.</p>
+      <div class="mock"></div>
+    </div>
+  </div>
+</section>
+
+<section class="tile tile-pearl">
+  <div class="wrap">
+    <h2>Проще корпоративных ВКС.<br>Надёжнее мессенджера.</h2>
+    <p class="lead">Одна платформа. Вебинары включены.</p>
+  </div>
+  <div class="wrap">
+    <div class="compare-table">
+      <div class="compare-cell">
+        <h3>Корпоративные ВКС</h3>
+        <p class="compare-desc">IT-отдел, лицензии, недели</p>
+        <ul>
+          <li>Внедрение неделями</li>
+          <li>Нужен IT-отдел</li>
+          <li>Установка приложений</li>
+          <li>Закрытые экосистемы</li>
+        </ul>
+      </div>
+      <div class="compare-cell highlight">
+        <h3>Коммза</h3>
+        <p class="compare-desc">Из браузера, всё в тарифе</p>
+        <ul>
+          <li>Без установки</li>
+          <li>Вебинары и записи</li>
+          <li>Гости без регистрации</li>
+          <li>HD и шифрование</li>
+        </ul>
+      </div>
+      <div class="compare-cell">
+        <h3>Мессенджеры</h3>
+        <p class="compare-desc">Переписка, не встречи</p>
+        <ul>
+          <li>Без вебинаров</li>
+          <li>Без записи</li>
+          <li>Лимит 8–32</li>
+          <li>Без админ-панели</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="edge-tile">
+  <h2>Три шага.</h2>
+  <p class="lead">Ссылка. Клик. Встреча.</p>
+  <div class="step-row">
+    <div class="step">
+      <p class="step-num">— шаг 01</p>
+      <h4>Создайте встречу</h4>
+      <p>В календаре, мессенджере или с главной.</p>
+    </div>
+    <div class="step">
+      <p class="step-num">— шаг 02</p>
+      <h4>Отправьте ссылку</h4>
+      <p>В Telegram, email, рабочий чат.</p>
+    </div>
+    <div class="step">
+      <p class="step-num">— шаг 03</p>
+      <h4>Начните разговор</h4>
+      <p>Видео, демо, чат, запись — всё в окне.</p>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <h2>Одна ссылка — и вы на встрече.</h2>
+  <p class="lead">Один клик — и команда на встрече.</p>
+  <div class="cta-row">
+    <a href="#" class="btn-pill">Начать бесплатно</a>
+    <a href="#" class="cta-link">Запросить демо</a>
+  </div>
+  <p class="final-microcopy">Тариф «Старт» — 0 ₽ навсегда. Без срока и без карты.</p>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Продукт</h4>
+        <a href="#">Возможности</a>
+        <a href="#">Тарифы</a>
+        <a href="#">Безопасность</a>
+        <a href="#">Roadmap</a>
+      </div>
+      <div class="footer-col">
+        <h4>Сценарии</h4>
+        <a href="#">Команды</a>
+        <a href="#">HR</a>
+        <a href="#">Обучение</a>
+        <a href="#">Консультации</a>
+      </div>
+      <div class="footer-col">
+        <h4>Компания</h4>
+        <a href="#">О нас</a>
+        <a href="#">Блог</a>
+        <a href="#">Контакты</a>
+      </div>
+      <div class="footer-col">
+        <h4>Юридическое</h4>
+        <a href="#">Политика</a>
+        <a href="#">Условия</a>
+        <a href="#">152-ФЗ</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ООО «ЛЕТС». Серверы в России.</span>
+      <a href="compare.html" style="color:var(--ink-muted-48)">← Сравнить версии</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
