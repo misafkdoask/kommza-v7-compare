@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Коммза — Apple direction (V7)</title>
+<title>Коммза — Apple direction (V8 finalist · category-clarity)</title>
 <style>
 :root {
   --canvas: #ffffff;
@@ -19,9 +19,10 @@
   --tile-3: #252527;
   --black: #000000;
   --chip: #d2d2d7;
-  --coral: #F97316;
-  --coral-deep: #C2410C;
-  --action-blue: #0066cc;
+  --coral: #E05A2B;
+  --coral-deep: #B14112;
+  --coral-soft: #FAE0D2;
+  --live-red: #E5484D;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -134,40 +135,146 @@ p { line-height: 1.47; }
   background: rgba(255,255,255,0.10); color: #fff;
 }
 
-/* Hero product image */
+/* Hero product image — v8: enhanced room mockup */
 .tile-product-mock {
   margin-top: 56px;
-  max-width: 880px;
+  max-width: 920px;
   margin-left: auto; margin-right: auto;
   aspect-ratio: 16/10;
   background: linear-gradient(135deg, var(--tile-1), var(--tile-2));
   border-radius: 24px 24px 0 0;
   position: relative;
   overflow: hidden;
-  padding: 32px;
+  padding: 28px 28px 0;
   box-shadow: 0 80px 120px -40px rgba(0,0,0,0.4);
+  display: flex; flex-direction: column;
 }
+.tile-product-mock .live-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: 'SF Mono', ui-monospace, monospace;
+  font-size: 11px; color: rgba(255,255,255,0.55);
+  margin-bottom: 16px;
+  letter-spacing: 0.04em;
+}
+.tile-product-mock .live-bar .live {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: #fff;
+}
+.tile-product-mock .live-bar .live-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--live-red);
+  animation: pulse-live 1.6s infinite;
+}
+@keyframes pulse-live { 0%,100% { opacity: 1; } 50% { opacity: 0.45; } }
 .tile-product-mock .room {
-  width: 100%; height: 100%;
-  display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 1fr); gap: 8px;
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 8px;
+  min-height: 0;
 }
 .tile-product-mock .vt {
   border-radius: 6px;
   background: linear-gradient(135deg, #2a2a2c, #1f1f21);
   position: relative;
+  display: flex; align-items: flex-end; padding: 8px;
+  overflow: hidden;
 }
-.tile-product-mock .vt::after {
-  content: ""; position: absolute; bottom: 8px; left: 8px;
-  width: 28px; height: 6px; border-radius: 2px; background: rgba(255,255,255,0.18);
+.tile-product-mock .vt-name {
+  font-family: 'SF Pro Text', system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  color: #fff;
+  background: rgba(0,0,0,0.55);
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: -0.01em;
+  position: relative;
+  z-index: 2;
+}
+.tile-product-mock .vt-mic {
+  position: absolute; top: 8px; right: 8px;
+  width: 18px; height: 18px;
+  background: rgba(0,0,0,0.55);
+  border-radius: 50%;
+  display: grid; place-items: center;
+  color: #fff;
+}
+.tile-product-mock .vt-mic.muted { background: rgba(229,72,77,0.85); }
+.tile-product-mock .vt-mic svg { width: 10px; height: 10px; }
+.tile-product-mock .vt-avatar {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -60%);
+  width: 38%; max-width: 64px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.16);
+  display: grid; place-items: center;
+  color: rgba(255,255,255,0.85);
+  font-family: 'SF Pro Display', system-ui, sans-serif;
+  font-size: 18px; font-weight: 600;
+  letter-spacing: 0;
 }
 .tile-product-mock .vt-host {
   background: linear-gradient(135deg, var(--coral), var(--coral-deep));
   grid-column: 1 / 3; grid-row: 1 / 3;
 }
-.tile-product-mock .vt-host::after { background: rgba(255,255,255,0.5); width: 40px; }
+.tile-product-mock .vt-host .vt-avatar {
+  background: rgba(255,255,255,0.20); color: #fff;
+  width: 42%; max-width: 96px;
+  font-size: 28px;
+}
 .tile-product-mock .vt-screen {
-  background: linear-gradient(135deg, #1a3a52, #0f2538);
-  grid-column: 3 / 5; grid-row: 1 / 3;
+  background:
+    linear-gradient(135deg, #1a3a52, #0f2538);
+  grid-column: 3 / 5; grid-row: 1 / 2;
+  position: relative;
+}
+.tile-product-mock .vt-screen::before {
+  content: ""; position: absolute; inset: 14% 18% 22% 18%;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.10) 0 14%, transparent 14%),
+    linear-gradient(180deg, rgba(255,255,255,0.06) 0 100%);
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+.tile-product-mock .vt-screen .screen-badge {
+  position: absolute; top: 10px; left: 10px;
+  font-family: 'SF Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,255,255,0.7);
+  background: rgba(0,0,0,0.4);
+  padding: 3px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  z-index: 2;
+}
+.tile-product-mock .controls {
+  display: flex; gap: 8px; justify-content: center;
+  padding: 14px 0 0;
+}
+.tile-product-mock .controls .ctrl {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(255,255,255,0.10);
+  display: grid; place-items: center;
+  color: #fff;
+}
+.tile-product-mock .controls .ctrl.danger { background: var(--live-red); }
+.tile-product-mock .controls .ctrl.coral { background: var(--coral); }
+.tile-product-mock .controls .ctrl svg { width: 14px; height: 14px; }
+.duo-mock-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
+}
+.duo-mock-grid .vt {
+  aspect-ratio: 16/10;
+  border-radius: 4px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+}
+.duo-cell.light .duo-mock-grid .vt {
+  background: linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.10));
+}
+.duo-mock-grid .vt-host {
+  background: linear-gradient(135deg, var(--coral), var(--coral-deep));
 }
 .duo-mock-grid {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
@@ -184,7 +291,7 @@ p { line-height: 1.47; }
   background: linear-gradient(135deg, var(--coral), var(--coral-deep));
 }
 
-/* Trust strip footer of hero */
+/* Trust strip footer of hero — v8: asymmetric, coral accent on lead item */
 .trust-strip {
   padding: 24px 0;
   border-top: 1px solid var(--divider);
@@ -192,10 +299,35 @@ p { line-height: 1.47; }
   font-size: 14px;
 }
 .trust-strip .wrap {
-  display: flex; flex-wrap: wrap; gap: 32px; justify-content: center;
+  display: grid;
+  grid-template-columns: minmax(280px, 1.6fr) 1fr 1fr 1fr;
+  gap: 24px;
+  align-items: center;
 }
-.trust-item { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-muted-80); }
-.trust-item svg { width: 16px; height: 16px; color: var(--coral); }
+.trust-main {
+  background: var(--coral-soft);
+  color: var(--ink);
+  padding: 14px 20px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 15px;
+  display: inline-flex; gap: 10px; align-items: center;
+  letter-spacing: -0.01em;
+}
+.trust-main svg { color: var(--coral); width: 20px; height: 20px; flex-shrink: 0; }
+.trust-sub {
+  display: inline-flex; gap: 8px; align-items: center;
+  font-size: 13px; color: var(--ink-muted-80);
+  letter-spacing: -0.01em;
+}
+.trust-sub svg { width: 16px; height: 16px; color: var(--ink-muted-48); flex-shrink: 0; }
+@media (max-width: 900px) {
+  .trust-strip .wrap { grid-template-columns: 1fr 1fr; }
+  .trust-main { grid-column: 1 / -1; justify-content: center; }
+}
+@media (max-width: 480px) {
+  .trust-strip .wrap { grid-template-columns: 1fr; }
+}
 
 /* Two-up grid in tile */
 .duo-grid {
@@ -364,6 +496,54 @@ footer {
 }
 @media (max-width: 760px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
 
+/* v8 mobile polish */
+@media (max-width: 760px) {
+  .tile { padding: 64px 0 0; }
+  .tile-product-mock {
+    margin-top: 32px;
+    padding: 16px 16px 0;
+    aspect-ratio: 4/3;
+    border-radius: 16px 16px 0 0;
+  }
+  .tile-product-mock .live-bar { font-size: 9px; margin-bottom: 10px; }
+  .tile-product-mock .live-bar .live-dot { width: 6px; height: 6px; }
+  .tile-product-mock .vt-name { font-size: 8px; padding: 2px 6px; }
+  .tile-product-mock .vt-mic { width: 14px; height: 14px; top: 6px; right: 6px; }
+  .tile-product-mock .vt-mic svg { width: 8px; height: 8px; }
+  .tile-product-mock .vt-avatar { font-size: 12px; }
+  .tile-product-mock .vt-host .vt-avatar { font-size: 18px; }
+  .tile-product-mock .screen-badge { font-size: 7px; padding: 2px 5px; }
+  .tile-product-mock .controls { padding: 10px 0 0; gap: 6px; }
+  .tile-product-mock .controls .ctrl { width: 26px; height: 26px; }
+  .tile-product-mock .controls .ctrl svg { width: 11px; height: 11px; }
+
+  .step-row { padding: 0 16px; }
+  .edge-tile, .final { padding: 64px 16px; }
+  .duo-grid { margin-top: 48px; }
+  .duo-cell { padding: 36px 24px; min-height: auto; }
+  .duo-cell .duo-headline { font-size: 26px; }
+  .feat-tiles { margin-top: 48px; }
+  .feat-tiles .tile-card { padding: 32px 24px; min-height: auto; }
+  .compare-table { margin-top: 48px; }
+}
+@media (max-width: 480px) {
+  h1 { font-size: 32px !important; }
+  .tile h1 br { display: none; }
+  .lead { font-size: 17px; }
+  .tile-product-mock { aspect-ratio: 5/6; padding: 12px 12px 0; }
+  .tile-product-mock .room {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 2fr 1fr 1fr;
+  }
+  .tile-product-mock .vt-host {
+    grid-column: 1 / 3; grid-row: 1 / 2;
+  }
+  .tile-product-mock .vt-screen {
+    grid-column: 1 / 3; grid-row: 2 / 3;
+  }
+  .tile-product-mock .controls .ctrl { width: 30px; height: 30px; }
+}
+
 </style>
 </head>
 <body>
@@ -390,23 +570,65 @@ footer {
     </div>
   </div>
   <div class="tile-product-mock">
+    <div class="live-bar">
+      <span class="live"><span class="live-dot"></span>LIVE · 5 участников · «Дейли команды»</span>
+      <span>00:14:32 · запись</span>
+    </div>
     <div class="room">
-      <div class="vt vt-host"></div>
-      <div class="vt vt-screen"></div>
-      <div class="vt"></div>
-      <div class="vt"></div>
-      <div class="vt"></div>
-      <div class="vt"></div>
+      <div class="vt vt-host">
+        <div class="vt-avatar">АР</div>
+        <div class="vt-mic" aria-label="микрофон включён">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M8 22h8"/></svg>
+        </div>
+        <div class="vt-name">Александр · ведущий</div>
+      </div>
+      <div class="vt vt-screen">
+        <span class="screen-badge">SCREEN · Q2 ROADMAP · 4 / 12</span>
+      </div>
+      <div class="vt">
+        <div class="vt-avatar">МК</div>
+        <div class="vt-mic" aria-label="микрофон включён">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M8 22h8"/></svg>
+        </div>
+        <div class="vt-name">Мария</div>
+      </div>
+      <div class="vt">
+        <div class="vt-avatar">ИС</div>
+        <div class="vt-mic muted" aria-label="микрофон выключен">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="4" x2="20" y2="20"/><rect x="9" y="3" width="6" height="11" rx="3"/></svg>
+        </div>
+        <div class="vt-name">Иван</div>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="ctrl" aria-label="микрофон">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg>
+      </div>
+      <div class="ctrl" aria-label="камера">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="7" width="14" height="10" rx="2"/><path d="M17 11l4-3v8l-4-3z"/></svg>
+      </div>
+      <div class="ctrl coral" aria-label="демонстрация экрана">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <div class="ctrl" aria-label="чат">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-13 6.3L3 20l1.7-5A8 8 0 1 1 21 12z"/></svg>
+      </div>
+      <div class="ctrl danger" aria-label="завершить">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 15.46l-5.27-.61-2.52 2.52a11.5 11.5 0 0 1-5.07-5.07l2.52-2.52L10.06 4.5C10 4.22 9.74 4 9.46 4H4.5A.5.5 0 0 0 4 4.5C4 13.06 10.94 20 19.5 20a.5.5 0 0 0 .5-.5v-3.54c0-.28-.22-.5-.5-.5z"/></svg>
+      </div>
     </div>
   </div>
 </section>
 
 <div class="trust-strip">
   <div class="wrap">
-    <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> HD без задержек</span>
-    <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Шифрование</span>
-    <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/></svg> Из любой точки мира</span>
-    <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M9 11l3 3L22 4"/></svg> Гости без регистрации</span>
+    <span class="trust-main">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M17 3.13a4 4 0 0 1 0 7.75"/></svg>
+      До 500+ участников в одной встрече
+    </span>
+    <span class="trust-sub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> HD без задержек</span>
+    <span class="trust-sub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Шифрование E2E</span>
+    <span class="trust-sub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M9 11l3 3L22 4"/></svg> Гости без регистрации</span>
   </div>
 </div>
 
